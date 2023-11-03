@@ -1,8 +1,9 @@
-function NutritionComponent({calories, nutrients}) {
+function NutritionComponent({label, quantity, unit}) {
     return(
         <div>
-    <h2>{calories}</h2>
-    <p>{nutrients}</p>
+    <h2>{label}</h2>
+    <p>{quantity}</p>
+    <p>{unit}</p>
         </div>
     )
 }

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import LoaderPage from './Loader/LoaderPage';
+import NutritionComponent from './NutritionComponent';
 
 function App() {
 
   const [mySearch, setMySearch] = useState();
   const [wordSubmit, setWordSubmit] = useState('');
   const [stateLoader, setStateLoader] = useState(false)
+  const [myNutrition, setMyNutrition] = useState()
   
   const MY_ID = "50520499";
   const MY_KEY = "5de2e45a1138192adf18fc3d1b0c4b2c";
@@ -29,7 +31,7 @@ function App() {
     if(response.ok) {
       setStateLoader(false);
       const data = await response.json();
-      console.log(data)
+      setMyNutrition(data)
     } else {
       setStateLoader(false);
       alert('ingredients entered incorrectly');
@@ -37,7 +39,6 @@ function App() {
   }
 
   const getData = (e) => {
-  console.log(e.target.value);
   setMySearch(e.target.value);
   }
 
@@ -63,8 +64,23 @@ function App() {
       <button>Click here</button>
       </form>
 
+      <div>
+      {
+        myNutrition && <p> {myNutrition.calories} kcal </p>
+      }
+      {
+        myNutrition && Object.values(myNutrition.totalNutrients)
+        .map(({label, quantity, unit}) => 
+        <NutritionComponent
+        label = {label}
+        quantity = {quantity}
+        unit = {unit}
+        />
+        )
+      }
+
       
-    
+    </div>
     </div>
   );
 }
