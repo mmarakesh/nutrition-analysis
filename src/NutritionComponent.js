@@ -1,10 +1,13 @@
 function NutritionComponent({label, quantity, unit}) {
     return(
+        
         <div>
-    <h2>{label}</h2>
-    <p>{quantity}</p>
-    <p>{unit}</p>
+            <ul className="container">
+            <li>{label} : {quantity.toFixed(1)} {unit}
+            </li>
+            </ul>
         </div>
+
     )
 }
 
