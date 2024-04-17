@@ -1,19 +1,68 @@
 body {
-  background-color: #c9d3ea;
+  background-image: url(food.avif);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .App {
-  text-align: center;
+  text-align: start;
+  margin: 50px;
 }
 .container {
   display: flex;
   justify-content: center;
 }
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 50px;
+}
+h3 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+p {
+  font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: italic;
+    font-size: 13px;
+}
 input {
   width: 300px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: none;
+}
+.font {
+  font-family: "Poppins", sans-serif;
 }
 .active {
   display: block;
 }
 .default {
   display: none;
+}
+.searchBtn {
+  font-family: "Poppins", sans-serif;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #dd8b00;
+  color: #fff;
+  margin-left: 10px;
+}
+.deleteBtn {
+  font-family: "Poppins", sans-serif;
+  margin-top: 10px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #4e6337;
+  color: #fff;
+}
+.font-list {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './App.css';
 import LoaderPage from './Loader/LoaderPage';
 import NutritionComponent from './NutritionComponent';
@@ -13,12 +13,12 @@ function App() {
 
   
   const APP_URL = 'https://api.edamam.com/api/nutrition-details'
-  const MY_ID = "50520499";
-  const MY_KEY = "5de2e45a1138192adf18fc3d1b0c4b2c";
+  const MY_ID = "227f4117";
+  const MY_KEY = "e80b1d2514af137854530f4704e023a2";
 
   
 
-  const getAnalysis = async (ingr) => {
+  const getAnalysis = useCallback ( async (ingr) => {
     setStateLoader(true);
 
     const response = await fetch(`${APP_URL}?app_id=${MY_ID}&app_key=${MY_KEY}`, 
@@ -37,9 +37,9 @@ function App() {
       setMyNutrition(data)
     } else {
       setStateLoader(false);
-      alert();
+      showAlert();
     }
-  }
+  }, [])
 
   const getData = (e) => {
   setMySearch(e.target.value);
@@ -55,7 +55,7 @@ function App() {
     setMyNutrition();
   }
 
-  const alert =()=>{
+  const showAlert =()=>{
     Swal.fire(
       'Ingredients are entered incorrectly',
       'Try writing for example: 2 avocados, 1 glass of milk, 100 grams of butter...'
@@ -67,7 +67,7 @@ function App() {
       let ingr = wordSubmit.split(/[,,;,\n,\r]/);
       getAnalysis(ingr);
     }
-  }, [wordSubmit])
+  }, [wordSubmit, getAnalysis])
 
   return (
     <div className="App">
@@ -76,9 +76,9 @@ function App() {
       
       <h1>Nutrinion Analysis</h1>
       <form onSubmit={finalSearch}>
-      <p>Enter your ingredients </p>
+      <h3>Enter your ingredients </h3>
       <p>for example: 2 avocados, 1 glass of milk, 100 grams of butter </p>
-      <input onChange={getData} 
+      <input onChange={getData} className='font'
       placeholder='Your ingredient...' 
       spellCheck="true"
       lang='en'
@@ -86,10 +86,11 @@ function App() {
       value={mySearch}>
       </input>
       
-      <button type='submit'>Search</button>
+      <button type='submit' className='searchBtn'>Search</button>
 
-      <div className='App'>
+      <div>
             <button 
+            className='deleteBtn'
             onClick={deleteSearch} 
             type='button'
             value={mySearch}>
@@ -99,13 +100,13 @@ function App() {
       </form>
 
       <div>
-      {
-        myNutrition && <p> {myNutrition.calories} kcal </p>
-      }
+      {/* {
+        myNutrition && <h3 className='kcal'>Contains: {myNutrition.calories} kcal </h3>
+      } */}
       {
         myNutrition && Object.values(myNutrition.totalNutrients)
-        .map(({label, quantity, unit}) => 
-        <NutritionComponent
+        .map(({label, quantity, unit}, index) => 
+        <NutritionComponent key={index}
         label = {label}
         quantity = {quantity}
         unit = {unit}
